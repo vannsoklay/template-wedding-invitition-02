@@ -6,7 +6,7 @@ import { AnimatedFrameDetail } from './frames/FrameDetail'
 
 export default function CoupleSection() {
     return (
-        <section className="relative min-h-screen flex items-center overflow-hidden justify-center bg-cream p-4">
+        <div className="relative min-h-screen flex items-center overflow-hidden justify-center bg-cream">
             <div className="absolute -top-56 -left-38 transform z-10 w-[680px]">
                 <AnimatedFrameDetail className="w-full h-96 text-amber-400" directions="left" />
             </div>
@@ -61,7 +61,7 @@ export default function CoupleSection() {
                     </motion.div>
                 </div>
             </div>
-        </section>
+        </div>
     )
 }
 

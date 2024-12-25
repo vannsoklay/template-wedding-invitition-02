@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ImageCarousel } from "./ImageCarousel";
+import { AnimatedFrameDetail } from "./frames/FrameDetail";
 
 const galleryImages = [
     {
@@ -40,8 +41,12 @@ const galleryImages = [
 export default function GallerySection() {
 
     return (
-        <section className="relative py-16 bg-cream min-h-screen overflow-hidden">
-            <div className="mx-auto px-4">
+        <>
+            <div className="absolute -top-56 -left-38 transform z-10 w-[680px]">
+                <AnimatedFrameDetail className="w-full h-96 text-amber-400" directions="left" />
+            </div>
+
+            <div className="mx-auto px-4 mt-32">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -61,6 +66,6 @@ export default function GallerySection() {
                     "ស្នេហាមិនមែនគ្រាន់តែជាការស្វែងរកមនុស្សដែលល្អឥតខ្ចោះនោះទេ តែជាការមើលឃើញមនុស្សម្នាក់យ៉ាងល្អឥតខ្ចោះ ទោះបីជាគេមិនល្អឥតខ្ចោះក៏ដោយ។"
                 </blockquote>
             </div>
-        </section>
+        </>
     );
 }

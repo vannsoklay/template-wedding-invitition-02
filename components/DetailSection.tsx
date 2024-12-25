@@ -2,7 +2,7 @@ import { AnimatedFrameDetail } from "./frames/FrameDetail"
 
 export default function DetailSection() {
   return (
-    <div className="relative min-h-screen flex overflow-hidden justify-center bg-cream p-4">
+    <>
       <div className="absolute mb:-top-60 -top-56 -left-38 transform z-40 w-[680px]">
         <AnimatedFrameDetail className="w-full h-96 text-amber-400 z-40" directions="left" />
       </div>
@@ -71,7 +71,7 @@ export default function DetailSection() {
           </div>
         </div>
       </div> */}
-    </div>
+    </>
   )
 }
 

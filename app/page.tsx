@@ -13,6 +13,7 @@ import LocationSection from '@/components/LocationSection'
 import DetailSection from '@/components/DetailSection'
 import GallerySection from '@/components/GallerySection'
 import { Icon } from '@iconify/react/dist/iconify.js'
+import { AnimatedFrameDetail } from '@/components/frames/FrameDetail'
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -41,12 +42,16 @@ export default function Home() {
 
       <motion.div>
         <AnimatedSection ref={sectionRefs.home} id="home" className="container max-w-lg mx-auto">
-          <HomeSection />
+          <div className="relative min-h-screen flex items-center overflow-hidden justify-center bg-cream p-4">
+            <HomeSection />
+          </div>
         </AnimatedSection>
       </motion.div>
 
       <AnimatedSection ref={sectionRefs.event} id="detail" className="container max-w-lg mx-auto">
-        <DetailSection />
+        <div className="relative min-h-screen flex overflow-hidden justify-center bg-cream p-4">
+          <DetailSection />
+        </div>
       </AnimatedSection>
 
       <AnimatedSection ref={sectionRefs.location} id="location" className="container max-w-lg mx-auto">
@@ -62,11 +67,16 @@ export default function Home() {
       </AnimatedSection>
 
       <AnimatedSection ref={sectionRefs.couple} id="gallery" className="container max-w-lg mx-auto">
-        <GallerySection />
+        <div className="relative min-h-screen flex overflow-hidden justify-center bg-cream">
+          <GallerySection />
+        </div>
       </AnimatedSection>
 
       <AnimatedSection ref={sectionRefs.comments} id="comments" className="container max-w-lg mx-auto">
-        <div className="relative min-h-screen overflow-hidden flex justify-center items-center bg-cream">
+        <div className="relative min-h-screen flex items-center overflow-hidden justify-center bg-cream z-40">
+          <div className="absolute -top-56 -left-38 transform z-10 w-[680px] z-40">
+            <AnimatedFrameDetail className="w-full h-96 text-amber-400 z-40" directions="left" />
+          </div>
           <Comments />
         </div>
       </AnimatedSection>

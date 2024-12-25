@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { Textarea, Button, Avatar } from "@nextui-org/react"
+import { useState, useEffect, useRef } from 'react';
+import { Textarea, Button, Avatar } from "@nextui-org/react";
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Comment {
@@ -18,53 +18,78 @@ const initialComments: Comment[] = [
     author: "សុខ ចាន់ដារ៉ា",
     content: "សូមប្រសិទ្ធិពរឲ្យពេលខាងមុខរបស់អ្នកទាំងពីរគ្របដណ្តប់ដោយសេចក្ដីស្រឡាញ់ និងសុភមង្គលជាអម!",
     timestamp: "2024-12-24T10:00:00Z",
-    likes: 5
+    likes: 5,
   },
   {
     id: 2,
     author: "លី ម៉ាលីកា",
     content: "សូមអរគុណដែលបានចែករំលែកថ្ងៃដ៏ស្រស់ស្អាតនេះជាមួយយើង! សូមអបអរសាទរ!",
     timestamp: "2024-12-24T10:15:00Z",
-    likes: 3
+    likes: 3,
   },
   {
     id: 3,
     author: "ជោត សោភា",
     content: "សប្បាយចិត្តណាស់ចំពោះអ្នកទាំងពីរ! អាពាហ៍ពិពាហ៍នេះពិតជាល្អឥតខ្ចោះ!",
     timestamp: "2024-12-24T10:30:00Z",
-    likes: 7
+    likes: 7,
   },
   {
     id: 4,
     author: "ឈុន វាសនា",
     content: "សូមអោយការធ្វើដំណើររួមគ្នារបស់អ្នកទាំងពីរមានតែសេចក្ដីរីករាយ និងសំនាងល្អ!",
     timestamp: "2024-12-24T10:45:00Z",
-    likes: 2
+    likes: 2,
   },
   {
     id: 5,
     author: "ពៅ ស្រីនាង",
     content: "សូមអបអរសាទរអាពាហ៍ពិពាហ៍របស់អ្នកទាំងពីរ! ថ្ងៃនេះពិតជាមិនអាចបំភ្លេចបានឡើយ!",
     timestamp: "2024-12-24T11:00:00Z",
-    likes: 4
+    likes: 4,
   }
 ];
 
-
 export default function Comments() {
   const [comments, setComments] = useState<Comment[]>([...initialComments]);
+  const [visibleComments, setVisibleComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
-  // Pagination state
-  const [currentPage, setCurrentPage] = useState(1);
-  const commentsPerPage = 4;
+  const commentsPerLoad = 4; // Number of comments to load per scroll
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
-  const indexOfLastComment = currentPage * commentsPerPage;
-  const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-  const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
+  // Load initial comments
+  useEffect(() => {
+    setVisibleComments(comments.slice(0, commentsPerLoad));
+  }, [comments]);
 
-  const totalPages = Math.ceil(comments.length / commentsPerPage);
+  const loadMoreComments = () => {
+    const currentLength = visibleComments.length;
+    const nextComments = comments.slice(
+      currentLength,
+      currentLength + commentsPerLoad
+    );
+
+    setVisibleComments((prev) => [...prev, ...nextComments]);
+
+    // Check if there are more comments to load
+    if (currentLength + commentsPerLoad >= comments.length) {
+      setHasMore(false);
+    }
+  };
+
+  const handleScroll = () => {
+    if (!scrollContainerRef.current || !hasMore) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
+
+    // Check if user scrolled near the bottom of the container
+    if (scrollTop + clientHeight >= scrollHeight - 50) {
+      loadMoreComments();
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,31 +110,20 @@ export default function Comments() {
     }
   };
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prevPage) => prevPage + 1);
-    }
-  };
-
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    }
-  };
-
-
   return (
-    <div className="max-w-2xl mx-auto my-12 px-4">
+    <div className="mx-auto px-4 z-50">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-8"
+        className="text-center mb-8 mt-32"
       >
         <h2 className="text-3xl font-semibold text-gray-800 mb-4">
           បំណងប្រាថ្នានិងយោបល់
         </h2>
-        <p className="text-gray-600">ចែករំលែកបំណងប្រាថ្នា និងគំនិតរបស់អ្នកទៅកាន់គូស្នេហ៍ទាំងពី</p>
+        <p className="text-gray-600">
+          ចែករំលែកបំណងប្រាថ្នា និងគំនិតរបស់អ្នកទៅកាន់គូស្នេហ៍ទាំងពី
+        </p>
       </motion.div>
 
       <form onSubmit={handleSubmit} className="mb-8">
@@ -126,18 +140,18 @@ export default function Comments() {
           color="primary"
           size="md"
           isLoading={isSubmitting}
-        // endContent={<Send size={18} />}
         >
           ប្រកាសបំណង
         </Button>
       </form>
 
       <div
-        // ref={commentListRef}
-        className="space-y-6 h-full overflow-y-auto custom-scrollbar"
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className="space-y-6 h-[60vh] overflow-y-auto custom-scrollbar bg-gray-50 rounded-lg p-4"
       >
         <AnimatePresence>
-          {currentComments.map((comment) => (
+          {visibleComments.map((comment) => (
             <motion.div
               key={comment.id}
               initial={{ opacity: 0, y: 20 }}
@@ -159,7 +173,7 @@ export default function Comments() {
                       {new Date(comment.timestamp).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'short',
-                        day: 'numeric'
+                        day: 'numeric',
                       })}
                     </p>
                   </div>
@@ -169,32 +183,13 @@ export default function Comments() {
             </motion.div>
           ))}
         </AnimatePresence>
-      </div>
 
-      <div className="flex justify-between items-center mt-6">
-        <Button
-          onPress={handlePrevPage}
-          isDisabled={currentPage === 1}
-          color="primary"
-          variant="flat"
-          size="sm"
-        >
-          Previous
-        </Button>
-        <p className="text-gray-600">
-          Page {currentPage} of {totalPages}
-        </p>
-        <Button
-          onPress={handleNextPage}
-          isDisabled={currentPage === totalPages}
-          color="primary"
-          variant="flat"
-          size="sm"
-        >
-          Next
-        </Button>
+        {!hasMore && (
+          <p className="text-center text-gray-500 mt-4">
+            All comments have been loaded.
+          </p>
+        )}
       </div>
     </div>
   );
 }
-

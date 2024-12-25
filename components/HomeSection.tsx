@@ -6,7 +6,7 @@ import { AnimatedLeaf } from "./AnimatedLeaf";
 
 export default function HomeSection() {
     return (
-        <div className="relative min-h-screen flex items-center overflow-hidden justify-center bg-cream p-4">
+        <>
             {/* Floral decorations */}
             <div className="absolute top-0 left-8 transform -translate-x-1/4 z-40 2mb:w-40 2mb:h-40 mb:w-48 mb:h-48">
                 <AnimatedFlower className="w-64 h-64 text-amber-400 z-40" directions="left" />
@@ -91,7 +91,7 @@ export default function HomeSection() {
                     </div>
                 </div>
             </div>
-            
+
             {/* Bottom floral decorations */}
             <div className="absolute -bottom-4 left-4 transform -translate-x-1/4 z-50">
                 <AnimatedLeaf className="w-64 h-64 text-amber-400 z-40" directions="right" />
@@ -99,6 +99,6 @@ export default function HomeSection() {
             <div className="absolute -bottom-4 right-4 transform translate-x-1/4 z-50">
                 <AnimatedLeaf className="w-64 h-64 text-amber-400 z-40" directions="left" />
             </div>
-        </div>
+        </>
     );
 }
