@@ -1,0 +1,204 @@
+@keyframes ring-left {
+    0% {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes ring-right {
+    0% {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes sway {
+
+    0%,
+    100% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+@keyframes flower-bloom {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes stem-grow {
+    0% {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+    }
+
+    100% {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes leaf-grow {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes write-text {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes flutter {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-5px) rotate(5deg);
+    }
+
+    75% {
+        transform: translateY(5px) rotate(-5deg);
+    }
+}
+
+@keyframes wings {
+
+    0%,
+    100% {
+        transform: scaleX(1);
+    }
+
+    50% {
+        transform: scaleX(0.8);
+    }
+}
+
+@keyframes zoom-in {
+    0% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes float-leaf {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(10deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+.animate-float-leaf {
+    animation: float-leaf 3s infinite ease-in-out;
+}
+
+.animate-ring-left {
+    animation: ring-left 1s ease-out forwards;
+}
+
+.animate-ring-right {
+    animation: ring-right 1s ease-out forwards;
+}
+
+.animate-sway {
+    animation: sway 3s ease-in-out infinite;
+}
+
+.animate-flower-bloom {
+    animation: flower-bloom 1.5s ease-out forwards;
+}
+
+.animate-stem-grow {
+    animation: stem-grow 2s ease-out forwards;
+}
+
+.animate-leaf-grow {
+    animation: leaf-grow 1.5s ease-out 0.5s forwards;
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-slide-down {
+    animation: slideDown 1s ease-out forwards;
+}
+
+.animate-fade-up {
+    animation: fadeUp 1s ease-out forwards;
+}
+
+.animate-write-text {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: write-text 2s steps(40, end) forwards;
+}
+
+.animate-flutter {
+    animation: flutter 4s ease-in-out infinite;
+}
+
+.animate-wings {
+    animation: wings 0.5s ease-in-out infinite;
+}
+
+.animate-zoom-in {
+    animation: zoom-in 1.5s ease-out forwards;
+}

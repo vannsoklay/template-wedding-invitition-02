@@ -1,101 +1,117 @@
-import Image from "next/image";
+'use client'
+
+import { useRef } from 'react'
+import { motion } from 'framer-motion'
+import Header from '@/components/Header'
+import AnimatedSection from '@/components/AnimatedSection'
+import HomeSection from '@/components/HomeSection'
+import CoupleSection from '@/components/CoupleSection'
+import EventSection from '@/components/EventSection'
+import RSVPSection from '@/components/RSVPSection'
+import Comments from '@/components/Comments'
+import LocationSection from '@/components/LocationSection'
+import DetailSection from '@/components/DetailSection'
+import GallerySection from '@/components/GallerySection'
+import { Icon } from '@iconify/react/dist/iconify.js'
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const containerRef = useRef<HTMLDivElement>(null)
+  // const { scrollYProgress } = useScroll({
+  //   target: containerRef,
+  //   offset: ['start', 'end start']
+  // })
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  // const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
+
+  const sectionRefs = {
+    home: useRef<HTMLDivElement>(null),
+    detail: useRef<HTMLDivElement>(null),
+    couple: useRef<HTMLDivElement>(null),
+    event: useRef<HTMLDivElement>(null),
+    gallery: useRef<HTMLDivElement>(null),
+    location: useRef<HTMLDivElement>(null),
+    rsvp: useRef<HTMLDivElement>(null),
+    comments: useRef<HTMLDivElement>(null),
+  }
+
+  return (
+    <main ref={containerRef} className="min-h-screen">
+      <Header />
+
+      <motion.div>
+        <AnimatedSection ref={sectionRefs.home} id="home" className="container max-w-lg mx-auto">
+          <HomeSection />
+        </AnimatedSection>
+      </motion.div>
+
+      <AnimatedSection ref={sectionRefs.event} id="detail" className="container max-w-lg mx-auto">
+        <DetailSection />
+      </AnimatedSection>
+
+      <AnimatedSection ref={sectionRefs.location} id="location" className="container max-w-lg mx-auto">
+        <LocationSection />
+      </AnimatedSection>
+
+      <AnimatedSection ref={sectionRefs.event} id="event" className="container max-w-lg mx-auto">
+        <EventSection />
+      </AnimatedSection>
+
+      <AnimatedSection ref={sectionRefs.couple} id="couple" className="container max-w-lg mx-auto">
+        <CoupleSection />
+      </AnimatedSection>
+
+      <AnimatedSection ref={sectionRefs.couple} id="gallery" className="container max-w-lg mx-auto">
+        <GallerySection />
+      </AnimatedSection>
+
+      <AnimatedSection ref={sectionRefs.comments} id="comments" className="container max-w-lg mx-auto">
+        <div className="relative min-h-screen overflow-hidden flex justify-center items-center bg-cream">
+          <Comments />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+      </AnimatedSection>
+
+      <AnimatedSection ref={sectionRefs.rsvp} id="rsvp" className="container max-w-lg mx-auto">
+        <RSVPSection />
+      </AnimatedSection>
+
+      <div className="container max-w-lg mx-auto bg-cream pb-12">
+        {/* Decorative Footer */}
+        <div className="flex items-center justify-center">
+          <div className="h-[1px] flex-1 bg-amber-200"></div>
+          <div className="px-4">
+            <span className="text-2xl font-dancing text-amber-400">សារ៉ានិងមីកែល</span>
+          </div>
+          <div className="h-[1px] flex-1 bg-amber-200"></div>
+        </div>
+
+        {/* Closing Message */}
+        <div className="mt-2 text-center text-gray-600">
+          <p>
+            <Icon
+              icon="mdi:cards-heart"
+              className="w-5 h-5 inline mr-2 text-amber-400"
+            />
+            យើងរង់ចាំអបអរសាទរជាមួយអ្នក!
+          </p>
+        </div>
+        {/* Social Media Icons */}
+        <div className="flex justify-center gap-4 mt-4">
+          <Icon
+            icon="mdi:instagram"
+            className="w-6 h-6 text-amber-400 cursor-pointer hover:text-amber-500"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <Icon
+            icon="mdi:facebook"
+            className="w-6 h-6 text-amber-400 cursor-pointer hover:text-amber-500"
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+          <Icon
+            icon="mdi:pinterest"
+            className="w-6 h-6 text-amber-400 cursor-pointer hover:text-amber-500"
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+        </div>
+      </div>
+    </main>
+  )
 }
+
