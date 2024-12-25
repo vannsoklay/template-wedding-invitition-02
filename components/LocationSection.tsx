@@ -5,7 +5,7 @@ import { AnimatedFrameDetail } from "./frames/FrameDetail";
 
 export default function LocationSection() {
   return (
-    <div className="relative min-h-screen flex overflow-hidden justify-center bg-cream">
+    <div className="relative min-h-screen flex overflow-hidden justify-center bg-cream p-4">
       <div className="absolute -top-56 -left-38 transform z-10 w-[680px]">
         <AnimatedFrameDetail className="w-full h-96 text-amber-400" directions="left" />
       </div>
